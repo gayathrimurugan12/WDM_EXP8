@@ -25,7 +25,9 @@ One can search, navigate, and modify data using a parser. It’s versatile and s
 8) Visualize Product Data using a Bar Chart
 
 ### Program:
-```PYTHON
+```
+NAME:GAYATHRI M
+REG NO:212223220024
 import requests
 from bs4 import BeautifulSoup
 import re
@@ -49,7 +51,19 @@ def get_amazon_products(search_query):
     products_data = []  # List to store product information
 
     if response.status_code == 200:
-        /* TYPE YOUR CODE HERE
+        soup = BeautifulSoup(response.text, 'html.parser')
+        # Find all divs containing product information
+        products = soup.find_all('div', {'data-component-type': 's-search-result'})
+
+        for product in products:
+            name = product.find('span', {'class': 'a-text-normal'}).text.strip()
+            price = product.find('span', {'class': 'a-offscreen'})
+            if price:
+                price = price.text.strip()
+            else:
+                price = 'Price not available'
+            products_data.append({'Product': name, 'Price': price})
+
 
     return sorted(products_data, key=lambda x: convert_price_to_float(x['Price']))
 
@@ -71,9 +85,11 @@ if products:  # Check if products list is not empty
     plt.show()
 else:
     print('No products found.')
-
 ```
 
 ### Output:
+![wdmex8pic1](https://github.com/user-attachments/assets/8411bdc9-ce96-4316-be8c-34c7e2e1c8c8)
+![wdmex8pic2](https://github.com/user-attachments/assets/f298d879-ed05-4a9a-b6cd-b5c6c326d961)
 
 ### Result:
+Thus Web Scraping On e-commerce platform using BeautifulSoup is executed successfully.
